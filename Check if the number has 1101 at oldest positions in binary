@@ -9,15 +9,11 @@ int main() {
         a[i] = x & 1;
         x = x >> 1;
     }
-    printf("number in binary:\n");
-    for (i = 0; i < 4; i++){
-        printf("%d", a[i]);
-    }
-    if (a[0] == 1 && a[1] == 1 && a[2] == 0 && a[3] == 1){
-        printf("\nnumber does have 1101 at the oldest positions");
-    }
-    else{
-        printf("number does not have 1101 at the oldest positions");
-        }
-    return 0;
+if (a[0] == 1 && a[1] == 1 && a[2] == 0 && a[3] == 1){
+printf("\nnumber does have 1101 at the oldest positions");
+}
+else{
+printf("number does not have 1101 at the oldest positions");
+}
+return 0;
 }
