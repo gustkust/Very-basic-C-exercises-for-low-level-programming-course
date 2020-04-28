@@ -1,3 +1,6 @@
+#include <string.h>
+
+
 int str_to_int(char*(str)) { // name says it all, works via ascii method
     int  i, len;
     int result = 0;
