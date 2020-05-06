@@ -2,7 +2,8 @@
 
 
 int str_to_int(char*(str)) { // name says it all, works via ascii method
-    int  i, len;
+    int  i;
+    unsigned long len;
     int result = 0;
     len = strlen(str);
     for(i = 0; i < len; i++){
