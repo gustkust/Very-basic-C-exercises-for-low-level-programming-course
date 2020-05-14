@@ -36,7 +36,6 @@ long long int str_to_long_int(char* (str)) {
 }
 
 
-
 void option_a() {
     struct worker new_worker;
     printf("Type name:\n");
@@ -111,7 +110,7 @@ void option_f() {
     fgets(num_str, 128, file);
     workers_number = str_to_int(num_str);
     for (i = 0; i < workers_number; i++) {
-        char nname[16], nsurname[64], nid_str[100];
+        char nid_str[100];
         long long int nid;
         struct worker new_worker;
         fgets(new_worker.name, 16, file);
@@ -128,7 +127,42 @@ void option_f() {
 
 
 int main() {
-    option_f();
-    option_b();
+    char option = 'g';
+    int was = 1;
+    printf("Choose option: a, b, c, d, e, f\n");
+    while (option < 104 && option > 96) {
+        char option = 'g';
+        scanf_s("%c", &option);
+        if (was == 1) {
+            was = 0;
+        }
+        else {
+            printf("Choose option: a, b, c, d, e, f\n");
+        }
+        if (option == '\n') scanf_s("%c", &option);
+        if (option > 104 || option < 96){
+            return 0;
+        }
+        switch (option) {
+        case 97:
+            option_a();
+            break;
+        case 98:
+            option_b();
+            break;
+        case 99:
+            option_c();
+            break;
+        case 100:
+            option_d();
+            break;
+        case 101:
+            option_e();
+            break;
+        case 102:
+            option_f();
+            break;
+        }
+    }
     return 0;
 }
