@@ -70,7 +70,7 @@ void opcja_U_S(struct student *studenci, int N) {
         }
     }
     if (byl_indeks == 0) {
-        printf("Podano bledny indeks.\n");
+        printf("Podano bledny numer albumu.\n");
     }
     for (indeks = indeks; indeks < N; indeks++) {
         studenci[indeks] = studenci[indeks + 1];
@@ -226,27 +226,34 @@ int main() {
             case 'O':
                 printf("Wybierz:\nP - dodanie oceny z programowania\nF - dodanie oceny z fizyki\n");
                 scanf("%s", &option);
-                if (option == 'P') {
-                    oceny_z_programowania[M] = opcja_O_P();
-                    M++;
-                } else if (option == 'F') {
-                    oceny_z_fizyki[K] = opcja_O_F();
-                    tmp = oceny_z_fizyki[K].nr_albumu;
-                    K++;
+                switch (option) {
+                    case 'P':
+                        oceny_z_programowania[M] = opcja_O_P();
+                        M++;
+                        break;
+                    case 'F':
+                        oceny_z_fizyki[K] = opcja_O_F();
+                        tmp = oceny_z_fizyki[K].nr_albumu;
+                        K++;
+                        break;
                 }
                 break;
             case 'U':
                 printf("Wybierz:\nS - usuniecie studenta\nP - usuniecie oceny z programowania\nF - usuniecie oceny z fizyki\n");
                 scanf("%s", &option);
-                if (option == 'S') {
-                    opcja_U_S(studenci, N);
-                    N--;
-                } else if (option == 'P') {
-                    opcja_U_P(oceny_z_programowania, M);
-                    M--;
-                } else if (option == 'F') {
-                    opcja_U_F(oceny_z_fizyki, K);
-                    K--;
+                switch (option) {
+                    case 'S':
+                        opcja_U_S(studenci, N);
+                        N--;
+                        break;
+                    case 'P':
+                        opcja_U_P(oceny_z_programowania, M);
+                        M--;
+                        break;
+                    case 'F':
+                        opcja_U_F(oceny_z_fizyki, K);
+                        K--;
+                        break;
                 }
                 break;
             case 'W':
