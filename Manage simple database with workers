@@ -282,13 +282,15 @@ int main() {
     fgets(linijka, 128, plik_studenci);
     M = str_to_int(linijka);
     struct ocena_z_programowania nowa_ocena_z_programowania;
-    for (i = 0; i < N; i++) {
+    for (i = 0; i < M; i++) {
         fgets(nr_albumu_str, 100, plik_programowanie);
         album = str_to_int(nr_albumu_str);
         nowa_ocena_z_programowania.nr_albumu = album;
         fgets(nowa_ocena_z_programowania.ocena, 3, plik_programowanie);
         nowa_ocena_z_programowania.ocena[2] = '\0';
+        if (nowa_ocena_z_programowania.ocena[1] == '\n') nowa_ocena_z_programowania.ocena[1] = '\0';
         oceny_z_programowania[i] = nowa_ocena_z_programowania;
+        if (i != M - 1) fgets(nr_albumu_str, 100, plik_programowanie);
     }
     fclose(plik_programowanie);
     printf("Wczytano oceny z programowania z pliku Programowanie.txt\n");
@@ -306,7 +308,9 @@ int main() {
         nowa_ocena_z_fizyki.nr_albumu = album;
         fgets(nowa_ocena_z_fizyki.ocena, 3, plik_fizyki);
         nowa_ocena_z_fizyki.ocena[2] = '\0';
+        if (nowa_ocena_z_fizyki.ocena[1] == '\n') nowa_ocena_z_fizyki.ocena[1] = '\0';
         oceny_z_fizyki[i] = nowa_ocena_z_fizyki;
+        if (i != K - 1) fgets(nr_albumu_str, 100, plik_fizyki);
     }
     fclose(plik_fizyki);
     printf("Wczytano oceny z programowania z pliku Programowanie.txt\n\n");
