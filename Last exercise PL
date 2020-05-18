@@ -1,0 +1,102 @@
+#include <stdio.h>
+#include <string.h>
+FILE* file;
+
+//struktury
+struct student {
+    // dlugosci tablic na podstawie jednego z wczesniejszych zadan
+    char imie[16];
+    char nazwisko[64];
+    // numery albumow na PP maja szesc cyfr, stad int
+    int nr_albumu;
+};
+
+
+struct ocena_z_programowania {
+    int nr_albumu;
+    // tablica z dwoma znakami, w wypadku ocen pokroju 3+, 4- itp.
+    char ocena[2];
+};
+
+
+struct ocena_z_fizyki {
+    int nr_albumu;
+    char ocena[2];
+};
+
+
+struct student opcja_N() {
+    struct student nowy_student;
+    printf("Podaj imie nowego studenta:\n");
+    scanf("%s", nowy_student.imie);
+    printf("Podaj nazwisko nowego studenta:\n");
+    scanf("%s", nowy_student.nazwisko);
+    printf("Podaj numer albumu nowego studenta:\n");
+    scanf("%d", &nowy_student.nr_albumu);
+    return nowy_student;
+}
+
+
+struct ocena_z_programowania opcja_O_P() {
+    struct ocena_z_programowania nowa_ocena_z_programowania;
+    printf("Podaj nowa ocene z programowania:\n");
+    scanf("%s", nowa_ocena_z_programowania.ocena);
+    printf("Podaj numer albumu:\n");
+    scanf("%d", &nowa_ocena_z_programowania.nr_albumu);
+    return nowa_ocena_z_programowania;
+}
+
+
+struct ocena_z_fizyki opcja_O_F() {
+    struct ocena_z_fizyki nowa_ocena_z_fizyki;
+    printf("Podaj nowa ocene z fizyki:\n");
+    scanf("%s", nowa_ocena_z_fizyki.ocena);
+    printf("Podaj numer albumu:\n");
+    scanf("%d", &nowa_ocena_z_fizyki.nr_albumu);
+    return nowa_ocena_z_fizyki;
+}
+
+
+
+
+
+int main() {
+    struct student studenci[50];
+    int N = 0;
+    struct ocena_z_programowania oceny_z_programowania[50];
+    int M = 0;
+    struct ocena_z_fizyki oceny_z_fizyki[50];
+    int K = 0;
+
+    char option;
+    scanf("%s", &option);
+    printf("%s\n", &option);
+
+    switch (option) {
+        case 'N':
+            studenci[N] = opcja_N();
+            N++;
+            break;
+        case 'O':
+            scanf("%s", &option);
+            if (option == 'P') {
+                oceny_z_programowania[M] = opcja_O_P();
+                M++;
+            } else if (option == 'F') {
+                oceny_z_fizyki[K] = opcja_O_F();
+                K++;
+            }
+            break;
+        case 'U':
+            scanf("%s", &option);
+            if (option == 'S') {
+
+            } else if (option == 'P') {
+
+            } else if (option == 'F') {
+                
+            }
+            break;
+    }
+    return 0;
+}
