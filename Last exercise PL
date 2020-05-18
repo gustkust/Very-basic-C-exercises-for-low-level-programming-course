@@ -213,9 +213,11 @@ int main() {
     int K = 0;
     printf("Dzien dobry!\n\n");
     char option;
+    int tmp;
     printf("Wybierz opcje:\nN - wprowadzenie nowego studenta\nO - wprowadzenie nowej oceny\nU - usuniecie studenta lub oceny\nW - wyprowadzenie informacji o studencie na bazie nazwiska\nA - wyprowadzenie informacji o studencie na bazie numeru albumu\nQ - wyjscie\n");
     scanf("%s", &option);
     while (option != 'Q') {
+        tmp = 0;
         switch (option) {
             case 'N':
                 studenci[N] = opcja_N();
@@ -229,6 +231,7 @@ int main() {
                     M++;
                 } else if (option == 'F') {
                     oceny_z_fizyki[K] = opcja_O_F();
+                    tmp = oceny_z_fizyki[K].nr_albumu;
                     K++;
                 }
                 break;
@@ -238,15 +241,12 @@ int main() {
                 if (option == 'S') {
                     opcja_U_S(studenci, N);
                     N--;
-                    break;
                 } else if (option == 'P') {
                     opcja_U_P(oceny_z_programowania, M);
                     M--;
-                    break;
                 } else if (option == 'F') {
                     opcja_U_F(oceny_z_fizyki, K);
                     K--;
-                    break;
                 }
                 break;
             case 'W':
@@ -258,6 +258,9 @@ int main() {
         }
         printf("Gotowe\n\nWybierz opcje:\nN - wprowadzenie nowego studenta\nO - wprowadzenie nowej oceny\nU - usuniecie studenta lub oceny\nW - wyprowadzenie informacji o studencie na bazie nazwiska\nA - wyprowadzenie informacji o studencie na bazie numeru albumu\nQ - wyjscie\n");
         scanf("%s", &option);
+        if (tmp != 0) {
+            oceny_z_fizyki[K - 1].nr_albumu = tmp;
+        }
     }
     printf("Do widzenia.\n");
     return 0;
