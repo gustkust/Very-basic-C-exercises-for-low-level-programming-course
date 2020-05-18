@@ -57,7 +57,151 @@ struct ocena_z_fizyki opcja_O_F() {
 }
 
 
+void opcja_U_S(struct student *studenci, int N) {
+    int indeks;
+    int album_do_usuniecia;
+    int byl_indeks = 0;
+    printf("Podaj numer albumu usuwanego studenta:\n");
+    scanf("%d", &album_do_usuniecia);
+    for (indeks = 0; indeks < N; indeks++) {
+        if (studenci[indeks].nr_albumu == album_do_usuniecia) {
+            byl_indeks = 1;
+            break;
+        }
+    }
+    if (byl_indeks == 0) {
+        printf("Podano bledny indeks.\n");
+    }
+    for (indeks = indeks; indeks < N; indeks++) {
+        studenci[indeks] = studenci[indeks + 1];
+    }
+}
 
+
+void opcja_U_P(struct ocena_z_programowania *oceny_z_programowania, int M) {
+    int indeks;
+    int album_do_usuniecia;
+    int byl_indeks = 0;
+    printf("Podaj numer albumu:\n");
+    scanf("%d", &album_do_usuniecia);
+    for (indeks = 0; indeks < M; indeks++) {
+        if (oceny_z_programowania[indeks].nr_albumu == album_do_usuniecia) {
+            byl_indeks = 1;
+            break;
+        }
+    }
+    if (byl_indeks == 0){
+        printf("Podano bledny numer albumu.\n");
+    }
+    for (indeks = indeks; indeks < M; indeks++) {
+        oceny_z_programowania[indeks] = oceny_z_programowania[indeks + 1];
+    }
+}
+
+
+void opcja_U_F(struct ocena_z_fizyki *oceny_z_fizyki, int K) {
+    int indeks;
+    int album_do_usuniecia;
+    int byl_indeks = 0;
+    printf("Podaj numer albumu:\n");
+    scanf("%d", &album_do_usuniecia);
+    for (indeks = 0; indeks < K; indeks++) {
+        if (oceny_z_fizyki[indeks].nr_albumu == album_do_usuniecia) {
+            byl_indeks = 1;
+            break;
+        }
+    }
+    if (byl_indeks == 0){
+        printf("Podano bledny numer albumu.\n");
+    }
+    for (indeks = indeks; indeks < K; indeks++) {
+        oceny_z_fizyki[indeks] = oceny_z_fizyki[indeks + 1];
+    }
+}
+
+
+void opcja_W(struct student *studenci, int N, struct ocena_z_programowania *oceny_z_programowania, int M, struct ocena_z_fizyki *oceny_z_fizyki, int K) {
+    char nazwisko_do_pokazania[64];
+    int i;
+    int j;
+    int byla_ocena = 0;
+    int bylo_nazwisko = 0;
+    printf("Podaj nazwisko studenta:\n");
+    scanf("%s", nazwisko_do_pokazania);
+    for (i = 0; i < N; i++) {
+        if (strcmp(studenci[i].nazwisko, nazwisko_do_pokazania) == 0) {
+            bylo_nazwisko = 1;
+            printf("Imie: %s\n", studenci[i].imie);
+            printf("Nazwisko: %s\n", studenci[i].nazwisko);
+            printf("Numer albumu: %d\n", studenci[i].nr_albumu);
+            for (j = 0; j < M; j++) {
+                if (studenci[i].nr_albumu == oceny_z_programowania[j].nr_albumu) {
+                    printf("Ocena z programowania: %s\n", oceny_z_programowania[j].ocena);
+                    byla_ocena = 1;
+                    break;
+                }
+            }
+            if (byla_ocena == 0) {
+                printf("Ocena z programowania: Brak.\n");
+            }
+            byla_ocena = 0;
+            for (j = 0; j < K; j++) {
+                if (studenci[i].nr_albumu == oceny_z_fizyki[j].nr_albumu) {
+                    printf("Ocena z fizyki: %s\n", oceny_z_fizyki[j].ocena);
+                    byla_ocena = 1;
+                    break;
+                }
+            }
+            if (byla_ocena == 0) {
+                printf("Ocena z fizyki: Brak.\n");
+            }
+            printf("\n");
+        }
+    }
+    if (bylo_nazwisko == 0) printf("Nie ma studenta o takim nazwisku\n");
+}
+
+
+void opcja_A(struct student *studenci, int N, struct ocena_z_programowania *oceny_z_programowania, int M, struct ocena_z_fizyki *oceny_z_fizyki, int K) {
+    int album_do_pokazania;
+    int i;
+    int j;
+    int byla_ocena = 0;
+    int byl_album = 0;
+    printf("Podaj numer albumu studenta:\n");
+    scanf("%d", &album_do_pokazania);
+    for (i = 0; i < N; i++) {
+        if (studenci[i].nr_albumu == album_do_pokazania) {
+            byl_album = 1;
+            printf("Imie: %s\n", studenci[i].imie);
+            printf("Nazwisko: %s\n", studenci[i].nazwisko);
+            printf("Numer albumu: %d\n", studenci[i].nr_albumu);
+            for (j = 0; j < M; j++) {
+                if (studenci[i].nr_albumu == oceny_z_programowania[j].nr_albumu) {
+                    printf("Ocena z programowania: %s\n", oceny_z_programowania[j].ocena);
+                    byla_ocena = 1;
+                    break;
+                }
+            }
+            if (byla_ocena == 0) {
+                printf("Ocena z programowania: Brak.\n");
+            }
+            byla_ocena = 0;
+            for (j = 0; j < K; j++) {
+                if (studenci[i].nr_albumu == oceny_z_fizyki[j].nr_albumu) {
+                    printf("Ocena z fizyki: %s\n", oceny_z_fizyki[j].ocena);
+                    byla_ocena = 1;
+                    break;
+                }
+            }
+            if (byla_ocena == 0) {
+                printf("Ocena z fizyki: Brak.\n");
+            }
+            break;
+        }
+    }
+    if (byl_album == 0) printf("Nie ma studenta z takim numerem albumu.\n");
+}
 
 
 int main() {
@@ -67,36 +211,54 @@ int main() {
     int M = 0;
     struct ocena_z_fizyki oceny_z_fizyki[50];
     int K = 0;
-
+    printf("Dzien dobry!\n\n");
     char option;
+    printf("Wybierz opcje:\nN - wprowadzenie nowego studenta\nO - wprowadzenie nowej oceny\nU - usuniecie studenta lub oceny\nW - wyprowadzenie informacji o studencie na bazie nazwiska\nA - wyprowadzenie informacji o studencie na bazie numeru albumu\nQ - wyjscie\n");
     scanf("%s", &option);
-    printf("%s\n", &option);
-
-    switch (option) {
-        case 'N':
-            studenci[N] = opcja_N();
-            N++;
-            break;
-        case 'O':
-            scanf("%s", &option);
-            if (option == 'P') {
-                oceny_z_programowania[M] = opcja_O_P();
-                M++;
-            } else if (option == 'F') {
-                oceny_z_fizyki[K] = opcja_O_F();
-                K++;
-            }
-            break;
-        case 'U':
-            scanf("%s", &option);
-            if (option == 'S') {
-
-            } else if (option == 'P') {
-
-            } else if (option == 'F') {
-                
-            }
-            break;
+    while (option != 'Q') {
+        switch (option) {
+            case 'N':
+                studenci[N] = opcja_N();
+                N++;
+                break;
+            case 'O':
+                printf("Wybierz:\nP - dodanie oceny z programowania\nF - dodanie oceny z fizyki\n");
+                scanf("%s", &option);
+                if (option == 'P') {
+                    oceny_z_programowania[M] = opcja_O_P();
+                    M++;
+                } else if (option == 'F') {
+                    oceny_z_fizyki[K] = opcja_O_F();
+                    K++;
+                }
+                break;
+            case 'U':
+                printf("Wybierz:\nS - usuniecie studenta\nP - usuniecie oceny z programowania\nF - usuniecie oceny z fizyki\n");
+                scanf("%s", &option);
+                if (option == 'S') {
+                    opcja_U_S(studenci, N);
+                    N--;
+                    break;
+                } else if (option == 'P') {
+                    opcja_U_P(oceny_z_programowania, M);
+                    M--;
+                    break;
+                } else if (option == 'F') {
+                    opcja_U_F(oceny_z_fizyki, K);
+                    K--;
+                    break;
+                }
+                break;
+            case 'W':
+                opcja_W(studenci, N, oceny_z_programowania, M, oceny_z_fizyki, K);
+                break;
+            case 'A':
+                opcja_A(studenci, N, oceny_z_programowania, M, oceny_z_fizyki, K);
+                break;
+        }
+        printf("Gotowe\n\nWybierz opcje:\nN - wprowadzenie nowego studenta\nO - wprowadzenie nowej oceny\nU - usuniecie studenta lub oceny\nW - wyprowadzenie informacji o studencie na bazie nazwiska\nA - wyprowadzenie informacji o studencie na bazie numeru albumu\nQ - wyjscie\n");
+        scanf("%s", &option);
     }
+    printf("Do widzenia.\n");
     return 0;
 }
