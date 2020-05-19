@@ -219,11 +219,11 @@ void opcja_Z(struct student* studenci, int N, struct ocena_z_programowania* ocen
     scanf_s("%s", nazwa_pliku_studenci);
     FILE* plik_studenci;
     fopen_s(&plik_studenci, nazwa_pliku_studenci, "w");
-    fprintf(plik_studenci, "%d\n", N);
     if (plik_studenci == NULL) {
         printf("Podano bledna nazwe pliku.\n");
         return 0;
     }
+    fprintf(plik_studenci, "%d\n", N);
     for (i = 0; i < N; i++) {
         fprintf(plik_studenci, "%s\n", studenci[i].imie);
         fprintf(plik_studenci, "%s\n", studenci[i].nazwisko);
@@ -236,11 +236,11 @@ void opcja_Z(struct student* studenci, int N, struct ocena_z_programowania* ocen
     scanf_s("%s", nazwa_pliku_programowanie);
     FILE* plik_programowanie;
     fopen_s(&plik_programowanie, nazwa_pliku_programowanie, "w");
-    fprintf(plik_programowanie, "%d\n", M);
     if (plik_programowanie == NULL) {
         printf("Podano bledna nazwe pliku.\n");
-        return 0;
+        return;
     }
+    fprintf(plik_programowanie, "%d\n", M);
     for (i = 0; i < M; i++) {
         fprintf(plik_programowanie, "%d\n", oceny_z_programowania[i].nr_albumu);
         fprintf(plik_programowanie, "%s\n", oceny_z_programowania[i].ocena);
@@ -252,11 +252,11 @@ void opcja_Z(struct student* studenci, int N, struct ocena_z_programowania* ocen
     scanf_s("%s", nazwa_pliku_fizyka);
     FILE* plik_fizyka;
     fopen_s(&plik_fizyka, nazwa_pliku_fizyka, "w");
-    fprintf(plik_fizyka, "%d\n", K);
     if (plik_fizyka == NULL) {
         printf("Podano bledna nazwe pliku.\n");
         return 0;
     }
+    fprintf(plik_fizyka, "%d\n", K);
     for (i = 0; i < K; i++) {
         fprintf(plik_fizyka, "%d\n", oceny_z_fizyki[i].nr_albumu);
         fprintf(plik_fizyka, "%s\n", oceny_z_fizyki[i].ocena);
@@ -268,90 +268,100 @@ void opcja_Z(struct student* studenci, int N, struct ocena_z_programowania* ocen
 int main() {
     printf("Dzien dobry!\n\n");
 
+
     char nazwa_pliku_studenci[100];
-    printf("Podaj nazwe pliku, z ktorego wczytac studentow:\n>");
-    scanf_s("%s", nazwa_pliku_studenci);
-    struct student studenci[50];
-    FILE* plik_studenci;
-    fopen_s(&plik_studenci, nazwa_pliku_studenci, "r");
-    if (plik_studenci == NULL) {
-        printf("Podano bledna nazwe pliku.\n");
-        return 0;
-    }
     char linijka[128];
     int i;
-    int N;
-    fgets(linijka, 128, plik_studenci);
-    N = str_to_int(linijka);
     char nr_albumu_str[100];
     int album;
-    struct student nowy_student;
-    for (i = 0; i < N; i++) {
-        fgets(nowy_student.imie, 16, plik_studenci);
-        nowy_student.imie[strlen(nowy_student.imie) - 1] = '\0';
-        fgets(nowy_student.nazwisko, 64, plik_studenci);
-        nowy_student.nazwisko[strlen(nowy_student.nazwisko) - 1] = '\0';
-        fgets(nr_albumu_str, 100, plik_studenci);
-        album = str_to_int(nr_albumu_str);
-        nowy_student.nr_albumu = album;
-        studenci[i] = nowy_student;
+    struct student studenci[50];
+    int N;
+    printf("Podaj nazwe pliku, z ktorego wczytac studentow lub wpisz 0, by nie wczytywac danych:\n>");
+    scanf_s("%s", nazwa_pliku_studenci);
+    if ((strcmp(nazwa_pliku_studenci, "0")) != 0) {
+        FILE* plik_studenci;
+        fopen_s(&plik_studenci, nazwa_pliku_studenci, "r");
+        if (plik_studenci == NULL) {
+            printf("Podano bledna nazwe pliku.\n");
+            return 0;
+        }
+        fgets(linijka, 128, plik_studenci);
+        N = str_to_int(linijka);
+        struct student nowy_student;
+        for (i = 0; i < N; i++) {
+            fgets(nowy_student.imie, 16, plik_studenci);
+            nowy_student.imie[strlen(nowy_student.imie) - 1] = '\0';
+            fgets(nowy_student.nazwisko, 64, plik_studenci);
+            nowy_student.nazwisko[strlen(nowy_student.nazwisko) - 1] = '\0';
+            fgets(nr_albumu_str, 100, plik_studenci);
+            album = str_to_int(nr_albumu_str);
+            nowy_student.nr_albumu = album;
+            studenci[i] = nowy_student;
+        }
+        fclose(plik_studenci);
+        printf("Wczytano studentow z pliku %s\n", nazwa_pliku_studenci);
     }
-    fclose(plik_studenci);
-    printf("Wczytano studentow z pliku %s\n", nazwa_pliku_studenci);
-
+    else N = 0;
+    
     char nazwa_pliku_programowanie[100];
-    printf("Podaj nazwe pliku, z ktorego wczytac oceny z programowania:\n>");
-    scanf_s("%s", nazwa_pliku_programowanie);
     struct ocena_z_programowania oceny_z_programowania[50];
-    FILE* plik_programowanie;
-    fopen_s(&plik_programowanie, nazwa_pliku_programowanie, "r");
-    if (plik_programowanie == NULL) {
-        printf("Podano bledna nazwe pliku.\n");
-        return 0;
-    }
     int M;
-    fgets(linijka, 128, plik_studenci);
-    M = str_to_int(linijka);
-    struct ocena_z_programowania nowa_ocena_z_programowania;
-    for (i = 0; i < M; i++) {
-        fgets(nr_albumu_str, 100, plik_programowanie);
-        album = str_to_int(nr_albumu_str);
-        nowa_ocena_z_programowania.nr_albumu = album;
-        fgets(nowa_ocena_z_programowania.ocena, 3, plik_programowanie);
-        nowa_ocena_z_programowania.ocena[2] = '\0';
-        if (nowa_ocena_z_programowania.ocena[1] == '\n') nowa_ocena_z_programowania.ocena[1] = '\0';
-        oceny_z_programowania[i] = nowa_ocena_z_programowania;
-        if (i != M - 1) fgets(nr_albumu_str, 100, plik_programowanie);
+    printf("Podaj nazwe pliku, z ktorego wczytac oceny z programowania lub wpisz 0, by nie wczytywac danych:\n>");
+    scanf_s("%s", nazwa_pliku_programowanie);
+    if ((strcmp(nazwa_pliku_programowanie, "0")) != 0) {
+        FILE* plik_programowanie;
+        fopen_s(&plik_programowanie, nazwa_pliku_programowanie, "r");
+        if (plik_programowanie == NULL) {
+            printf("Podano bledna nazwe pliku.\n");
+            return 0;
+        }
+        fgets(linijka, 128, plik_programowanie);
+        M = str_to_int(linijka);
+        struct ocena_z_programowania nowa_ocena_z_programowania;
+        for (i = 0; i < M; i++) {
+            fgets(nr_albumu_str, 100, plik_programowanie);
+            album = str_to_int(nr_albumu_str);
+            nowa_ocena_z_programowania.nr_albumu = album;
+            fgets(nowa_ocena_z_programowania.ocena, 3, plik_programowanie);
+            nowa_ocena_z_programowania.ocena[2] = '\0';
+            if (nowa_ocena_z_programowania.ocena[1] == '\n') nowa_ocena_z_programowania.ocena[1] = '\0';
+            oceny_z_programowania[i] = nowa_ocena_z_programowania;
+            if (i != M - 1) fgets(nr_albumu_str, 100, plik_programowanie);
+        }
+        fclose(plik_programowanie);
+        printf("Wczytano oceny z programowania z pliku %s\n", nazwa_pliku_programowanie);
     }
-    fclose(plik_programowanie);
-    printf("Wczytano oceny z programowania z pliku %s\n", nazwa_pliku_programowanie);
-
+    else M = 0;
+    
     char nazwa_pliku_fizyka[100];
-    printf("Podaj nazwe pliku, z ktorego wczytac oceny z fizyki:\n>");
-    scanf_s("%s", nazwa_pliku_fizyka);
     struct ocena_z_fizyki oceny_z_fizyki[50];
-    FILE* plik_fizyka;
-    fopen_s(&plik_fizyka, nazwa_pliku_fizyka, "r");
-    if (plik_fizyka == NULL) {
-        printf("Podano bledna nazwe pliku.\n");
-        return 0;
-    }
     int K;
-    fgets(linijka, 128, plik_fizyka);
-    K = str_to_int(linijka);
-    struct ocena_z_fizyki nowa_ocena_z_fizyki;
-    for (i = 0; i < K; i++) {
-        fgets(nr_albumu_str, 100, plik_fizyka);
-        album = str_to_int(nr_albumu_str);
-        nowa_ocena_z_fizyki.nr_albumu = album;
-        fgets(nowa_ocena_z_fizyki.ocena, 3, plik_fizyka);
-        nowa_ocena_z_fizyki.ocena[2] = '\0';
-        if (nowa_ocena_z_fizyki.ocena[1] == '\n') nowa_ocena_z_fizyki.ocena[1] = '\0';
-        oceny_z_fizyki[i] = nowa_ocena_z_fizyki;
-        if (i != K - 1) fgets(nr_albumu_str, 100, plik_fizyka);
+    printf("Podaj nazwe pliku, z ktorego wczytac oceny z fizyki lub wpisz 0, by nie wczytywac danych:\n>");
+    scanf_s("%s", nazwa_pliku_fizyka);
+    if ((strcmp(nazwa_pliku_fizyka, "0")) != 0) {
+        FILE* plik_fizyka;
+        fopen_s(&plik_fizyka, nazwa_pliku_fizyka, "r");
+        if (plik_fizyka == NULL) {
+            printf("Podano bledna nazwe pliku.\n");
+            return 0;
+        }
+        fgets(linijka, 128, plik_fizyka);
+        K = str_to_int(linijka);
+        struct ocena_z_fizyki nowa_ocena_z_fizyki;
+        for (i = 0; i < K; i++) {
+            fgets(nr_albumu_str, 100, plik_fizyka);
+            album = str_to_int(nr_albumu_str);
+            nowa_ocena_z_fizyki.nr_albumu = album;
+            fgets(nowa_ocena_z_fizyki.ocena, 3, plik_fizyka);
+            nowa_ocena_z_fizyki.ocena[2] = '\0';
+            if (nowa_ocena_z_fizyki.ocena[1] == '\n') nowa_ocena_z_fizyki.ocena[1] = '\0';
+            oceny_z_fizyki[i] = nowa_ocena_z_fizyki;
+            if (i != K - 1) fgets(nr_albumu_str, 100, plik_fizyka);
+        }
+        fclose(plik_fizyka);
+        printf("Wczytano oceny z fizyki z pliku %s\n\n", nazwa_pliku_fizyka);
     }
-    fclose(plik_fizyka);
-    printf("Wczytano oceny z fizyki z pliku %s\n\n", nazwa_pliku_fizyka);
+    else K = 0;
 
     char option;
     int tmp;
