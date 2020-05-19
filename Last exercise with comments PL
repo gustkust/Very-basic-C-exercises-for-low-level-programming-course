@@ -2,7 +2,7 @@
 #include <string.h>
 
 
-/* Ta wersja programu nie różni się niczym od drugiej, 
+/* Ta wersja programu nie różni się niczym od drugiej,
 ale zawieta komentarze tlumaczace niektore
 decyzje podjete w trakcie pisania*/
 
@@ -82,7 +82,7 @@ void opcja_U_S(struct student* studenci, int N) { // funkcja usuwajaca studenta
         }
     }
     if (byl_indeks == 0) { // informacja, ze nie udalo sie znalezc
-        printf("Podano bledny numer albumu.\n"); 
+        printf("Podano bledny numer albumu.\n");
     }
     for (indeks = indeks; indeks < N; indeks++) { // przestawianie pozostalych studentow o jedna pozycje (N obnizane w main)
         studenci[indeks] = studenci[indeks + 1];
@@ -373,17 +373,17 @@ int main() {
     else K = 0;
     printf("\n");
     // poczatek menu wyboru
-    char option;
+    char opcja;
     int tmp; // ta zmienna rozwiazuje problem zwiazany ze scanf napotkany w trakcie testow
     printf("Wybierz opcje:\nN - wprowadzenie nowego studenta.\n"); // pierwsze wyswietlenie menu poza petla
     printf("O - wprowadzenie nowej oceny.\nU - usuniecie studenta lub oceny.\n");
     printf("W - wyprowadzenie informacji o studencie na bazie nazwiska.\n");
     printf("A - wyprowadzenie informacji o studencie na bazie numeru albumu.\n");
     printf("Z - zapisanie danych do plikow.\nQ - wyjscie.\n>");
-    scanf_s("%s", &option); // pobieranie opcji ierwszy raz poza petla
-    while (option != 'Q') { // Q konczy petle
+    scanf_s("%s", &opcja); // pobieranie opcji ierwszy raz poza petla
+    while (opcja != 'Q') { // Q konczy petle
         tmp = 0;
-        switch (option) {
+        switch (opcja) {
         case 'N':
             printf("\n");
             studenci[N] = opcja_N();
@@ -397,9 +397,9 @@ int main() {
             break;
         case 'O':
             printf("Wybierz:\nP - dodanie oceny z programowania.\nF - dodanie oceny z fizyki.\n>");
-            scanf_s("%s", &option);
+            scanf_s("%s", &opcja);
             printf("\n");
-            switch (option) { // switch wewnetrzny
+            switch (opcja) { // switch wewnetrzny
             case 'P':
                 oceny_z_programowania[M] = opcja_O_P();
                 M++;
@@ -426,9 +426,9 @@ int main() {
             break;
         case 'U':
             printf("Wybierz:\nS - usuniecie studenta.\nP - usuniecie oceny z programowania.\nF - usuniecie oceny z fizyki.\n>");
-            scanf_s("%s", &option);
+            scanf_s("%s", &opcja);
             printf("\n");
-            switch (option) { // switch wewnetrzny
+            switch (opcja) { // switch wewnetrzny
             case 'S':
                 opcja_U_S(studenci, N);
                 N--;
@@ -459,7 +459,7 @@ int main() {
         printf("W - wyprowadzenie informacji o studencie na bazie nazwiska.\n");
         printf("A - wyprowadzenie informacji o studencie na bazie numeru albumu.\n");
         printf("Z - zapisanie danych do plikow.\nQ - wyjscie.\n>");
-        scanf_s("%s", &option); // wczytywanie nowej opcji
+        scanf_s("%s", &opcja); // wczytywanie nowej opcji
         if (tmp != 0) {
             oceny_z_fizyki[K - 1].nr_albumu = tmp; // przypisanie tmp jako nr_albumu nowej oceny z fizyki jesli byla wybrana ta opcja
         }
