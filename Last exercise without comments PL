@@ -163,6 +163,7 @@ void opcja_W(struct student* studenci, int N, struct ocena_z_programowania* ocen
             if (byla_ocena == 0) {
                 printf("Ocena z fizyki: Brak.\n");
             }
+            byla_ocena = 0;
         }
     }
     if (bylo_nazwisko == 1) printf("\nTo wszyscy studenci z tym nazwiskiem.\n");
