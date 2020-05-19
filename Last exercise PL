@@ -34,11 +34,11 @@ int str_to_int(char* (str)) {
 
 struct student opcja_N() {
     struct student nowy_student;
-    printf("Podaj imie nowego studenta:\n");
+    printf("Podaj imie nowego studenta:\n>");
     scanf_s("%s", nowy_student.imie);
-    printf("Podaj nazwisko nowego studenta:\n");
+    printf("Podaj nazwisko nowego studenta:\n>");
     scanf_s("%s", nowy_student.nazwisko);
-    printf("Podaj numer albumu nowego studenta:\n");
+    printf("Podaj numer albumu nowego studenta:\n>");
     scanf_s("%d", &nowy_student.nr_albumu);
     return nowy_student;
 }
@@ -46,9 +46,9 @@ struct student opcja_N() {
 
 struct ocena_z_programowania opcja_O_P() {
     struct ocena_z_programowania nowa_ocena_z_programowania;
-    printf("Podaj nowa ocene z programowania:\n");
+    printf("Podaj nowa ocene z programowania:\n>");
     scanf_s("%s", nowa_ocena_z_programowania.ocena);
-    printf("Podaj numer albumu:\n");
+    printf("Podaj numer albumu:\n>");
     scanf_s("%d", &nowa_ocena_z_programowania.nr_albumu);
     return nowa_ocena_z_programowania;
 }
@@ -56,9 +56,9 @@ struct ocena_z_programowania opcja_O_P() {
 
 struct ocena_z_fizyki opcja_O_F() {
     struct ocena_z_fizyki nowa_ocena_z_fizyki;
-    printf("Podaj nowa ocene z fizyki:\n");
+    printf("Podaj nowa ocene z fizyki:\n>");
     scanf_s("%s", nowa_ocena_z_fizyki.ocena);
-    printf("Podaj numer albumu:\n");
+    printf("Podaj numer albumu:\n>");
     scanf_s("%d", &nowa_ocena_z_fizyki.nr_albumu);
     return nowa_ocena_z_fizyki;
 }
@@ -68,7 +68,7 @@ void opcja_U_S(struct student* studenci, int N) {
     int indeks;
     int album_do_usuniecia;
     int byl_indeks = 0;
-    printf("Podaj numer albumu usuwanego studenta:\n");
+    printf("Podaj numer albumu usuwanego studenta:\n>");
     scanf_s("%d", &album_do_usuniecia);
     for (indeks = 0; indeks < N; indeks++) {
         if (studenci[indeks].nr_albumu == album_do_usuniecia) {
@@ -89,7 +89,7 @@ void opcja_U_P(struct ocena_z_programowania* oceny_z_programowania, int M) {
     int indeks;
     int album_do_usuniecia;
     int byl_indeks = 0;
-    printf("Podaj numer albumu:\n");
+    printf("Podaj numer albumu:\n>");
     scanf_s("%d", &album_do_usuniecia);
     for (indeks = 0; indeks < M; indeks++) {
         if (oceny_z_programowania[indeks].nr_albumu == album_do_usuniecia) {
@@ -110,7 +110,7 @@ void opcja_U_F(struct ocena_z_fizyki* oceny_z_fizyki, int K) {
     int indeks;
     int album_do_usuniecia;
     int byl_indeks = 0;
-    printf("Podaj numer albumu:\n");
+    printf("Podaj numer albumu:\n>");
     scanf_s("%d", &album_do_usuniecia);
     for (indeks = 0; indeks < K; indeks++) {
         if (oceny_z_fizyki[indeks].nr_albumu == album_do_usuniecia) {
@@ -133,7 +133,7 @@ void opcja_W(struct student* studenci, int N, struct ocena_z_programowania* ocen
     int j;
     int byla_ocena = 0;
     int bylo_nazwisko = 0;
-    printf("Podaj nazwisko studenta:\n");
+    printf("Podaj nazwisko studenta:\n>");
     scanf_s("%s", nazwisko_do_pokazania);
     for (i = 0; i < N; i++) {
         if (strcmp(studenci[i].nazwisko, nazwisko_do_pokazania) == 0) {
@@ -176,7 +176,7 @@ void opcja_A(struct student* studenci, int N, struct ocena_z_programowania* ocen
     int j;
     int byla_ocena = 0;
     int byl_album = 0;
-    printf("Podaj numer albumu studenta:\n");
+    printf("Podaj numer albumu studenta:\n>");
     scanf_s("%d", &album_do_pokazania);
     for (i = 0; i < N; i++) {
         if (studenci[i].nr_albumu == album_do_pokazania) {
@@ -215,11 +215,15 @@ void opcja_A(struct student* studenci, int N, struct ocena_z_programowania* ocen
 void opcja_Z(struct student* studenci, int N, struct ocena_z_programowania* oceny_z_programowania, int M, struct ocena_z_fizyki* oceny_z_fizyki, int K) {
     int i;
     char nazwa_pliku_studenci[100];
-    printf("Podaj nazwe pliku, do ktorego zapisac studentow:\n");
+    printf("Podaj nazwe pliku, do ktorego zapisac studentow:\n>");
     scanf_s("%s", nazwa_pliku_studenci);
     FILE* plik_studenci;
     fopen_s(&plik_studenci, nazwa_pliku_studenci, "w");
     fprintf(plik_studenci, "%d\n", N);
+    if (plik_studenci == NULL) {
+        printf("Podano bledna nazwe pliku.\n");
+        return 0;
+    }
     for (i = 0; i < N; i++) {
         fprintf(plik_studenci, "%s\n", studenci[i].imie);
         fprintf(plik_studenci, "%s\n", studenci[i].nazwisko);
@@ -228,11 +232,15 @@ void opcja_Z(struct student* studenci, int N, struct ocena_z_programowania* ocen
     fclose(plik_studenci);
 
     char nazwa_pliku_programowanie[100];
-    printf("Podaj nazwe pliku, do ktorego zapisac oceny z programowania:\n");
+    printf("Podaj nazwe pliku, do ktorego zapisac oceny z programowania:\n>");
     scanf_s("%s", nazwa_pliku_programowanie);
     FILE* plik_programowanie;
     fopen_s(&plik_programowanie, nazwa_pliku_programowanie, "w");
     fprintf(plik_programowanie, "%d\n", M);
+    if (plik_programowanie == NULL) {
+        printf("Podano bledna nazwe pliku.\n");
+        return 0;
+    }
     for (i = 0; i < M; i++) {
         fprintf(plik_programowanie, "%d\n", oceny_z_programowania[i].nr_albumu);
         fprintf(plik_programowanie, "%s\n", oceny_z_programowania[i].ocena);
@@ -240,11 +248,15 @@ void opcja_Z(struct student* studenci, int N, struct ocena_z_programowania* ocen
     fclose(plik_programowanie);
 
     char nazwa_pliku_fizyka[100];
-    printf("Podaj nazwe pliku, do ktorego zapisac oceny z fizyki:\n");
+    printf("Podaj nazwe pliku, do ktorego zapisac oceny z fizyki:\n>");
     scanf_s("%s", nazwa_pliku_fizyka);
     FILE* plik_fizyka;
     fopen_s(&plik_fizyka, nazwa_pliku_fizyka, "w");
     fprintf(plik_fizyka, "%d\n", K);
+    if (plik_fizyka == NULL) {
+        printf("Podano bledna nazwe pliku.\n");
+        return 0;
+    }
     for (i = 0; i < K; i++) {
         fprintf(plik_fizyka, "%d\n", oceny_z_fizyki[i].nr_albumu);
         fprintf(plik_fizyka, "%s\n", oceny_z_fizyki[i].ocena);
@@ -257,11 +269,15 @@ int main() {
     printf("Dzien dobry!\n\n");
 
     char nazwa_pliku_studenci[100];
-    printf("Podaj nazwe pliku, z ktorego wczytac studentow:\n");
+    printf("Podaj nazwe pliku, z ktorego wczytac studentow:\n>");
     scanf_s("%s", nazwa_pliku_studenci);
     struct student studenci[50];
     FILE* plik_studenci;
     fopen_s(&plik_studenci, nazwa_pliku_studenci, "r");
+    if (plik_studenci == NULL) {
+        printf("Podano bledna nazwe pliku.\n");
+        return 0;
+    }
     char linijka[128];
     int i;
     int N;
@@ -284,11 +300,15 @@ int main() {
     printf("Wczytano studentow z pliku %s\n", nazwa_pliku_studenci);
 
     char nazwa_pliku_programowanie[100];
-    printf("Podaj nazwe pliku, z ktorego wczytac oceny z programowania:\n");
+    printf("Podaj nazwe pliku, z ktorego wczytac oceny z programowania:\n>");
     scanf_s("%s", nazwa_pliku_programowanie);
     struct ocena_z_programowania oceny_z_programowania[50];
     FILE* plik_programowanie;
     fopen_s(&plik_programowanie, nazwa_pliku_programowanie, "r");
+    if (plik_programowanie == NULL) {
+        printf("Podano bledna nazwe pliku.\n");
+        return 0;
+    }
     int M;
     fgets(linijka, 128, plik_studenci);
     M = str_to_int(linijka);
@@ -307,31 +327,35 @@ int main() {
     printf("Wczytano oceny z programowania z pliku %s\n", nazwa_pliku_programowanie);
 
     char nazwa_pliku_fizyka[100];
-    printf("Podaj nazwe pliku, z ktorego wczytac oceny z fizyki:\n");
+    printf("Podaj nazwe pliku, z ktorego wczytac oceny z fizyki:\n>");
     scanf_s("%s", nazwa_pliku_fizyka);
     struct ocena_z_fizyki oceny_z_fizyki[50];
-    FILE* plik_fizyki;
-    fopen_s(&plik_fizyki, nazwa_pliku_fizyka, "r");
+    FILE* plik_fizyka;
+    fopen_s(&plik_fizyka, nazwa_pliku_fizyka, "r");
+    if (plik_fizyka == NULL) {
+        printf("Podano bledna nazwe pliku.\n");
+        return 0;
+    }
     int K;
-    fgets(linijka, 128, plik_fizyki);
+    fgets(linijka, 128, plik_fizyka);
     K = str_to_int(linijka);
     struct ocena_z_fizyki nowa_ocena_z_fizyki;
     for (i = 0; i < K; i++) {
-        fgets(nr_albumu_str, 100, plik_fizyki);
+        fgets(nr_albumu_str, 100, plik_fizyka);
         album = str_to_int(nr_albumu_str);
         nowa_ocena_z_fizyki.nr_albumu = album;
-        fgets(nowa_ocena_z_fizyki.ocena, 3, plik_fizyki);
+        fgets(nowa_ocena_z_fizyki.ocena, 3, plik_fizyka);
         nowa_ocena_z_fizyki.ocena[2] = '\0';
         if (nowa_ocena_z_fizyki.ocena[1] == '\n') nowa_ocena_z_fizyki.ocena[1] = '\0';
         oceny_z_fizyki[i] = nowa_ocena_z_fizyki;
-        if (i != K - 1) fgets(nr_albumu_str, 100, plik_fizyki);
+        if (i != K - 1) fgets(nr_albumu_str, 100, plik_fizyka);
     }
-    fclose(plik_fizyki);
+    fclose(plik_fizyka);
     printf("Wczytano oceny z fizyki z pliku %s\n\n", nazwa_pliku_fizyka);
 
     char option;
     int tmp;
-    printf("Wybierz opcje:\nN - wprowadzenie nowego studenta\nO - wprowadzenie nowej oceny\nU - usuniecie studenta lub oceny\nW - wyprowadzenie informacji o studencie na bazie nazwiska\nA - wyprowadzenie informacji o studencie na bazie numeru albumu\nZ - zapisanie danych do plikow\nQ - wyjscie\n");
+    printf("Wybierz opcje:\nN - wprowadzenie nowego studenta\nO - wprowadzenie nowej oceny\nU - usuniecie studenta lub oceny\nW - wyprowadzenie informacji o studencie na bazie nazwiska\nA - wyprowadzenie informacji o studencie na bazie numeru albumu\nZ - zapisanie danych do plikow\nQ - wyjscie\n>");
     scanf_s("%s", &option);
     while (option != 'Q') {
         tmp = 0;
@@ -341,7 +365,7 @@ int main() {
             N++;
             break;
         case 'O':
-            printf("Wybierz:\nP - dodanie oceny z programowania\nF - dodanie oceny z fizyki\n");
+            printf("Wybierz:\nP - dodanie oceny z programowania\nF - dodanie oceny z fizyki\n>");
             scanf_s("%s", &option);
             switch (option) {
             case 'P':
@@ -356,7 +380,7 @@ int main() {
             }
             break;
         case 'U':
-            printf("Wybierz:\nS - usuniecie studenta\nP - usuniecie oceny z programowania\nF - usuniecie oceny z fizyki\n");
+            printf("Wybierz:\nS - usuniecie studenta\nP - usuniecie oceny z programowania\nF - usuniecie oceny z fizyki\n>");
             scanf_s("%s", &option);
             switch (option) {
             case 'S':
@@ -382,7 +406,7 @@ int main() {
         case 'Z':
             opcja_Z(studenci, N, oceny_z_programowania, M, oceny_z_fizyki, K);
         }
-        printf("Gotowe\n\nWybierz opcje:\nN - wprowadzenie nowego studenta\nO - wprowadzenie nowej oceny\nU - usuniecie studenta lub oceny\nW - wyprowadzenie informacji o studencie na bazie nazwiska\nA - wyprowadzenie informacji o studencie na bazie numeru albumu\nZ - zapisanie danych do plikow\nQ - wyjscie\n");
+        printf("Gotowe\n\nWybierz opcje:\nN - wprowadzenie nowego studenta\nO - wprowadzenie nowej oceny\nU - usuniecie studenta lub oceny\nW - wyprowadzenie informacji o studencie na bazie nazwiska\nA - wyprowadzenie informacji o studencie na bazie numeru albumu\nZ - zapisanie danych do plikow\nQ - wyjscie\n>");
         scanf_s("%s", &option);
         if (tmp != 0) {
             oceny_z_fizyki[K - 1].nr_albumu = tmp;
