@@ -5,18 +5,18 @@
 struct student {
     char imie[16];
     char nazwisko[64];
-    int nr_albumu;
+    long long int nr_albumu;
 };
 
 
 struct ocena_z_programowania {
-    int nr_albumu;
+    long long int nr_albumu;
     char ocena[3];
 };
 
 
 struct ocena_z_fizyki {
-    int nr_albumu;
+    long long int nr_albumu;
     char ocena[3];
 };
 
@@ -39,7 +39,7 @@ struct student opcja_N() {
     printf("Podaj nazwisko nowego studenta:\n>");
     scanf_s("%s", nowy_student.nazwisko, 64);
     printf("Podaj numer albumu nowego studenta:\n>");
-    scanf_s("%d", &nowy_student.nr_albumu, 10);
+    scanf_s("%lld", &nowy_student.nr_albumu, 20);
     return nowy_student;
 }
 
@@ -49,7 +49,7 @@ struct ocena_z_programowania opcja_O_P() {
     printf("Podaj nowa ocene z programowania:\n>");
     scanf_s("%s", nowa_ocena_z_programowania.ocena, 3);
     printf("Podaj numer albumu:\n>");
-    scanf_s("%d", &nowa_ocena_z_programowania.nr_albumu, 10);
+    scanf_s("%lld", &nowa_ocena_z_programowania.nr_albumu, 20);
     return nowa_ocena_z_programowania;
 }
 
@@ -59,17 +59,17 @@ struct ocena_z_fizyki opcja_O_F() {
     printf("Podaj nowa ocene z fizyki:\n>");
     scanf_s("%s", nowa_ocena_z_fizyki.ocena, 3);
     printf("Podaj numer albumu:\n>");
-    scanf_s("%d", &nowa_ocena_z_fizyki.nr_albumu, 10);
+    scanf_s("%lld", &nowa_ocena_z_fizyki.nr_albumu, 20);
     return nowa_ocena_z_fizyki;
 }
 
 
 void opcja_U_S(struct student* studenci, int N) {
     int indeks;
-    int album_do_usuniecia;
+    long long int album_do_usuniecia;
     int byl_indeks = 0;
     printf("Podaj numer albumu usuwanego studenta:\n>");
-    scanf_s("%d", &album_do_usuniecia, 10);
+    scanf_s("%lld", &album_do_usuniecia, 20);
     for (indeks = 0; indeks < N; indeks++) {
         if (studenci[indeks].nr_albumu == album_do_usuniecia) {
             byl_indeks = 1;
@@ -87,11 +87,11 @@ void opcja_U_S(struct student* studenci, int N) {
 
 void opcja_U_P(struct ocena_z_programowania* oceny_z_programowania, int M) {
     int indeks;
-    int album_do_usuniecia;
+    long long int album_do_usuniecia;
     int byl_indeks = 0;
     char ocena[3];
     printf("Podaj numer albumu:\n>");
-    scanf_s("%d", &album_do_usuniecia, 10);
+    scanf_s("%lld", &album_do_usuniecia, 20);
     printf("Podaj ocene:\n>");
     scanf_s("%s", ocena, 3);
     for (indeks = 0; indeks < M; indeks++) {
@@ -111,11 +111,11 @@ void opcja_U_P(struct ocena_z_programowania* oceny_z_programowania, int M) {
 
 void opcja_U_F(struct ocena_z_fizyki* oceny_z_fizyki, int K) {
     int indeks;
-    int album_do_usuniecia;
+    long long int album_do_usuniecia;
     int byl_indeks = 0;
     char ocena[3];
     printf("Podaj numer albumu:\n>");
-    scanf_s("%d", &album_do_usuniecia, 10);
+    scanf_s("%lld", &album_do_usuniecia, 20);
     printf("Podaj ocene:\n>");
     scanf_s("%s", ocena, 3);
     for (indeks = 0; indeks < K; indeks++) {
@@ -147,7 +147,7 @@ void opcja_W(struct student* studenci, int N, struct ocena_z_programowania* ocen
             bylo_nazwisko = 1;
             printf("Imie: %s\n", studenci[i].imie);
             printf("Nazwisko: %s\n", studenci[i].nazwisko);
-            printf("Numer albumu: %d\n", studenci[i].nr_albumu);
+            printf("Numer albumu: %lld\n", studenci[i].nr_albumu);
             printf("Oceny z programowania: ");
             for (j = 0; j < M; j++) {
                 if (studenci[i].nr_albumu == oceny_z_programowania[j].nr_albumu) {
@@ -187,19 +187,19 @@ void opcja_W(struct student* studenci, int N, struct ocena_z_programowania* ocen
 
 
 void opcja_A(struct student* studenci, int N, struct ocena_z_programowania* oceny_z_programowania, int M, struct ocena_z_fizyki* oceny_z_fizyki, int K) {
-    int album_do_pokazania;
+    long long int album_do_pokazania;
     int i;
     int j;
     int byla_ocena = 0;
     int byl_album = 0;
     printf("Podaj numer albumu studenta:\n>");
-    scanf_s("%d", &album_do_pokazania, 10);
+    scanf_s("%lld", &album_do_pokazania, 20);
     for (i = 0; i < N; i++) {
         if (studenci[i].nr_albumu == album_do_pokazania) {
             byl_album = 1;
             printf("Imie: %s\n", studenci[i].imie);
             printf("Nazwisko: %s\n", studenci[i].nazwisko);
-            printf("Numer albumu: %d\n", studenci[i].nr_albumu);
+            printf("Numer albumu: %lld\n", studenci[i].nr_albumu);
             printf("Oceny z programowania: ");
             for (j = 0; j < M; j++) {
                 if (studenci[i].nr_albumu == oceny_z_programowania[j].nr_albumu) {
@@ -248,7 +248,7 @@ void opcja_Z(struct student* studenci, int N, struct ocena_z_programowania* ocen
         for (i = 0; i < N; i++) {
             fprintf(plik_studenci, "%s\n", studenci[i].imie);
             fprintf(plik_studenci, "%s\n", studenci[i].nazwisko);
-            fprintf(plik_studenci, "%d\n", studenci[i].nr_albumu);
+            fprintf(plik_studenci, "%lld\n", studenci[i].nr_albumu);
         }
         fclose(plik_studenci);
         printf("Zapisano studentow do pliku %s.\n", nazwa_pliku_studenci);
@@ -263,7 +263,7 @@ void opcja_Z(struct student* studenci, int N, struct ocena_z_programowania* ocen
         fopen_s(&plik_programowanie, nazwa_pliku_programowanie, "w");
         fprintf(plik_programowanie, "%d\n", M);
         for (i = 0; i < M; i++) {
-            fprintf(plik_programowanie, "%d\n", oceny_z_programowania[i].nr_albumu);
+            fprintf(plik_programowanie, "%lld\n", oceny_z_programowania[i].nr_albumu);
             fprintf(plik_programowanie, "%s\n", oceny_z_programowania[i].ocena);
         }
         fclose(plik_programowanie);
@@ -279,7 +279,7 @@ void opcja_Z(struct student* studenci, int N, struct ocena_z_programowania* ocen
         fopen_s(&plik_fizyka, nazwa_pliku_fizyka, "w");
         fprintf(plik_fizyka, "%d\n", K);
         for (i = 0; i < K; i++) {
-            fprintf(plik_fizyka, "%d\n", oceny_z_fizyki[i].nr_albumu);
+            fprintf(plik_fizyka, "%lld\n", oceny_z_fizyki[i].nr_albumu);
             fprintf(plik_fizyka, "%s\n", oceny_z_fizyki[i].ocena);
         }
         fclose(plik_fizyka);
@@ -311,7 +311,7 @@ int main() {
         for (i = 0; i < N; i++) {
             fscanf_s(plik_studenci, "%s", studenci[i].imie, 16);
             fscanf_s(plik_studenci, "%s", studenci[i].nazwisko, 64);
-            fscanf_s(plik_studenci, "%d", &studenci[i].nr_albumu, 10);
+            fscanf_s(plik_studenci, "%lld", &studenci[i].nr_albumu, 20);
         }
         fclose(plik_studenci);
         printf("Wczytano studentow z pliku %s.\n", nazwa_pliku_studenci);
@@ -335,7 +335,7 @@ int main() {
         fscanf_s(plik_programowanie, "%s", linijka, 128);
         M = str_to_int(linijka);
         for (i = 0; i < M; i++) {
-            fscanf_s(plik_programowanie, "%d", &oceny_z_programowania[i].nr_albumu, 10);
+            fscanf_s(plik_programowanie, "%lld", &oceny_z_programowania[i].nr_albumu, 20);
             fscanf_s(plik_programowanie, "%s", oceny_z_programowania[i].ocena, 3);
         }
         fclose(plik_programowanie);
@@ -360,7 +360,7 @@ int main() {
         fscanf_s(plik_fizyka, "%s", linijka, 128);
         K = str_to_int(linijka);
         for (i = 0; i < K; i++) {
-            fscanf_s(plik_fizyka, "%d", &oceny_z_fizyki[i].nr_albumu, 10);
+            fscanf_s(plik_fizyka, "%lld", &oceny_z_fizyki[i].nr_albumu, 20);
             fscanf_s(plik_fizyka, "%s", oceny_z_fizyki[i].ocena, 3);
         }
         fclose(plik_fizyka);
