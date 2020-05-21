@@ -2,9 +2,6 @@
 #include <string.h>
 
 
-// Ta wersja programu nie rozni sie niczym od wersji bez komentarzy.
-// Zawiera za to uzasanienia wielu decyzji podjetych w trakcie pisania.
-
 // Program okazal sie stosunkowo dlugi, co wynika z rozdrobnienia funkcji, ale uznalem ze jest to lepsze rozwiazanie niz
 // tworzenie dlugich funkcji z wieloma zbednymi arugmentami (np jednej funkcji dla usuwania, w ktorej dopiero wybiera sie co usuwamy).
 // Program ostrzega w wielu miejscach o np wpisaniu zlego numeru albumu i zadowalajaco przechodzil wielorakie testy.
@@ -14,7 +11,7 @@
 struct student {
     char imie[16]; // Dlugosc imienia i nazwiska na podstawie jednego z wczesniejszych zadan z pracownikami.
     char nazwisko[64];
-    long long int nr_albumu; // Numer albumu moglby byc tez jako char, ale wymagalo by to naduzywania funkcji strcmp.
+    long long int nr_albumu; // Numer albumu moglby byc tez jako char, ale wymagaloby to naduzywania funkcji strcmp.
 };
 
 
@@ -78,7 +75,7 @@ void opcja_U_S(struct student* studenci, int N) {
             break;
         }
     }
-    if (byl_indeks == 0) { // W tym przypadku jest to informacja o blednym numerze indeksu wprzypadku nieznalezienia wpisanego.
+    if (byl_indeks == 0) { // W tym przypadku jest to informacja o blednym numerze indeksu w przypadku nieznalezienia wpisanego.
         printf("Podano bledny numer albumu.\n");
     }
     for (indeks = indeks; indeks < N; indeks++) { // Przestawianie pozostalych elementow funkcji.
@@ -189,7 +186,7 @@ void opcja_W(struct student* studenci, int N, struct ocena_z_programowania* ocen
 }
 
 
-// Funkcja robiaca to samo co poprzednia tylko na podstawie numeru albumu
+// Funkcja robiaca to samo co poprzednia tylko na podstawie numeru albumu.
 void opcja_A(struct student* studenci, int N, struct ocena_z_programowania* oceny_z_programowania, int M, struct ocena_z_fizyki* oceny_z_fizyki, int K) {
     long long int album_do_pokazania;
     int i;
@@ -232,7 +229,7 @@ void opcja_A(struct student* studenci, int N, struct ocena_z_programowania* ocen
             if (byla_ocena == 0) {
                 printf("Brak.");
             }
-            break; // Poniewaz numery albumow sa unikatowe po jednym wykonaniu petli mozna zastosowac break
+            break; // Poniewaz numery albumow sa unikatowe po jednym studenci mozna zastosowac break.
         }
     }
     if (byl_album == 0) printf("Nie ma studenta z takim numerem albumu.");
@@ -240,7 +237,7 @@ void opcja_A(struct student* studenci, int N, struct ocena_z_programowania* ocen
 }
 
 
-// Funkcja wypisujaca dane z listy struktur do plikow
+// Funkcja wypisujaca dane z listy struktur do plikow.
 void opcja_Z(struct student* studenci, int N, struct ocena_z_programowania* oceny_z_programowania, int M, struct ocena_z_fizyki* oceny_z_fizyki, int K) {
     int i;
     FILE* plik;
@@ -289,7 +286,7 @@ void opcja_Z(struct student* studenci, int N, struct ocena_z_programowania* ocen
 }
 
 
-// Funkcja main zawierajaca menu i czytajaca dane z plikow na poczatku programu
+// Funkcja main zawierajaca menu i czytajaca dane z plikow na poczatku programu.
 int main() {
     printf("Dzien dobry!\n\n");
     // Wczytywanie danych z plikow - najpierw dla studentow, pozniej na tej samej zasadzie dla ocen.
@@ -365,7 +362,7 @@ int main() {
 
     char zbedny_znak; // Zmienna zbierajaca zbedne znaki \n pojawiajace sie przy scanf_s.
     char opcja; // Zmienna przechowywujaca instrukcje.
-    // pierwsze wyswietleniem menu i pobranie opcji przed petla, pozniejsze zawsze na koncu petli.
+    // Pierwsze wyswietlenie menu i pobranie opcji przed petla, pozniejsze zawsze na koncu petli.
     printf("Wybierz opcje:\nN - wprowadzenie nowego studenta.\n");
     printf("O - wprowadzenie nowej oceny.\nU - usuniecie studenta lub oceny.\n");
     printf("W - wyprowadzenie informacji o studencie na bazie nazwiska.\n");
@@ -373,7 +370,7 @@ int main() {
     printf("Z - zapisanie danych do plikow.\nQ - wyjscie.\n>");
     scanf_s("%c", &opcja, 1);
     while (opcja != 'Q') { // glowna petla (Q konczy program).
-        // Czesc operacji (szczegolnie na N, M i K), dzieje sie poza funkcjami.
+        // Mala czesc operacji (szczegolnie na N, M i K), dzieje sie poza funkcjami.
         switch (opcja) {
         case 'N':
             printf("\n");
@@ -413,7 +410,7 @@ int main() {
             case 'S':
                 // Usuniecie studenta nie powoduje usuniecia jego ocen, tak samo mozna dodac ocene do numeru albumu, a potem dopiero studenta o takim numerze albumu.
                 opcja_U_S(studenci, N);
-                N--; // Obniżanie odpowienich wskaznikow.
+                N--; // Obniżanie odpowienich licznikow.
                 break;
             case 'P':
                 opcja_U_P(oceny_z_programowania, M);
@@ -426,7 +423,7 @@ int main() {
             }
             break;
         case 'W':
-            // Przed kazda funkcja wypisywany jest \n, ale tutaj jest to wewnatrz funckji z racji ze chcemy miec przerwe po kazdym studencie z tym samym nazwiskiem, bez dziwnej, wiekszej przerwy na koncu.
+            printf("\n");
             opcja_W(studenci, N, oceny_z_programowania, M, oceny_z_fizyki, K);
             break;
         case 'A':
@@ -437,8 +434,9 @@ int main() {
             printf("\n");
             opcja_Z(studenci, N, oceny_z_programowania, M, oceny_z_fizyki, K);
         }
-        // Menu wyswietla sie tylko, gdy wykonala sie jakas funkcja w tej literacji petli.
+        // Menu wyswietla sie tylko, gdy wykonala sie jakas funkcja w tej iteracji petli.
         // Pomaga to glownie w tym, ze gdy scanf_s wylapie jakis niechciany znak pokroju \n, to menu nie wyswietla sie pare razy pod rzad, a uzytkownik nawet nie wie, ze petla wykonala zbedna iteracje.
+        // Z tego samego powodu printf("\n"); jest wewnatrz kazdego case, a nie po while.
         if (opcja == 'N' || opcja == 'O' || opcja == 'P' || opcja == 'F' || opcja == 'U' || opcja == 'S' || opcja == 'W' || opcja == 'A' || opcja == 'Z') {
             printf("Gotowe.\n\nWybierz opcje:\nN - wprowadzenie nowego studenta.\n");
             printf("O - wprowadzenie nowej oceny.\nU - usuniecie studenta lub oceny.\n");
@@ -448,6 +446,6 @@ int main() {
         }
         scanf_s("%c", &opcja, 1);
     }
-    printf("Do widzenia.\n");
+    printf("\nDo widzenia.\n");
     return 0;
 }
